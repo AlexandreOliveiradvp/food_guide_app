@@ -1,5 +1,6 @@
 "use client";
 import "./globals.scss";
+//import { usePathname } from "next/navigation";
 
 export default function RootLayout({
   children,
@@ -8,9 +9,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
+      <body className={`antialiased`}>
         {children}
       </body>
     </html>
