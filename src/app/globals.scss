@@ -20,7 +20,7 @@ body {
     height: 100%;
     background-color: rgba($color: #494a4e, $alpha: 0.65);
     .login-box {
-      height: 65vh;
+      min-height: 65vh;
       width: 30vw;
       border-radius: 15px;
       background-color: #ffffff;
@@ -85,4 +85,8 @@ body {
   &:active {
     background-color: var(--red-primary-active);
   }
+}
+.validation-warning {
+  font-size: 0.8rem;
+  color: var(--red-border);
 }
