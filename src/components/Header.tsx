@@ -40,10 +40,10 @@ const HeaderDefault = () => {
               >
                 <ul onClick={closeDropown}>
                   <li>
-                    <Link href="/dashboard">Search Recipes</Link>
+                    <Link href="/dashboard/consult">Search Recipes</Link>
                   </li>
                   <li>
-                    <Link href="/recipes">My Recipes</Link>
+                    <Link href="/dashboard/recipes">My Recipes</Link>
                   </li>
                 </ul>
               </div>

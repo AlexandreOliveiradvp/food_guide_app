@@ -19,7 +19,7 @@ export default function Login() {
     }),
     onSubmit: (values) => {
       if (values.name == "Test" && values.password == "123456") {
-        router.push("/dashboard");
+        router.push("/dashboard/consult");
       } else {
         alert("Usuário Inválido!");
       }
