@@ -4,11 +4,16 @@ import Image from "next/image";
 import Logo from "../../public/assets/logoHeader.png";
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import Link from "next/link";
+
 const HeaderDefault = () => {
   const [stateDropdown, setValue] = useState(false);
   const dropdownAction = () => {
     setValue(!stateDropdown);
   };
+  const closeDropown = () => {
+    setValue(false)
+  }
 
   return (
     <header className="header-default">
@@ -33,9 +38,13 @@ const HeaderDefault = () => {
                     : "invisible"
                 }
               >
-                <ul>
-                  <li>Search Recipes</li>
-                  <li>My Recipes</li>
+                <ul onClick={closeDropown}>
+                  <li>
+                    <Link href="/dashboard">Search Recipes</Link>
+                  </li>
+                  <li>
+                    <Link href="/recipes">My Recipes</Link>
+                  </li>
                 </ul>
               </div>
             </div>
