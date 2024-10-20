@@ -1,12 +1,11 @@
 import React from "react";
-import HeaderDefault from "@/components/Header";
 
-const DashboadPage = () => {
-  return (
-    <main className="main-dashboard">
-      <HeaderDefault></HeaderDefault>
-    </main>
-  );
+const DashboadPage = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  return <div>{children}</div>;
 };
 
 export default DashboadPage;
