@@ -28,6 +28,7 @@
     }
   }
   .list-dropdown {
+    z-index: 1;
     margin-top: -1px;
     border: 1px solid var(--red-border);
     border-radius: 0 0 5px 5px;
@@ -36,7 +37,6 @@
       color: var(--color-text);
       li {
         padding: 0.3rem 0.5rem;
-        cursor: pointer;
         &:hover {
           background-color: #ffe8e8;
         }

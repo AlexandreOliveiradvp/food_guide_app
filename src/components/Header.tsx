@@ -34,7 +34,7 @@ const HeaderDefault = () => {
               <div
                 className={
                   stateDropdown
-                    ? "list-dropdown shadow-lg ease-in duration-150"
+                    ? "list-dropdown shadow-lg ease-in duration-150 z-10"
                     : "invisible"
                 }
               >

@@ -9,7 +9,9 @@ const DashboadPage = ({
   return (
     <main className="main-dashboard">
       <HeaderDefault></HeaderDefault>
-      <div>{children}</div>
+      <div className="container mx-auto">
+        {children}
+      </div>
     </main>
   );
 };
