@@ -1,11 +1,15 @@
 "use client";
 import api from "@/api/api";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const ConsultContent = () => {
-  const request = (value: string) => {
-    api
+  const [loading, setLoading] = useState(false);
+
+  const request = async (value: string) => {
+    setLoading(true);
+    await api
       .get(`/recipes/complexSearch?query=${value}`)
       .then((response) => {
         console.log(response);
@@ -13,6 +17,7 @@ const ConsultContent = () => {
       .catch((err) => {
         console.error(err);
       });
+    setLoading(false);
   };
   const formik = useFormik({
     initialValues: {
@@ -60,9 +65,11 @@ const ConsultContent = () => {
           <div className="w-full content-search">
             <div className="card-search rounded-md p-2">
               <label>Search Result</label>
-              <div className="w-full flex justify-center">
-                <div className="loader"></div>
-              </div>
+              {loading ? (
+                <div className="w-full flex justify-center">
+                  <div className="loader"></div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
