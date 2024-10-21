@@ -72,6 +72,9 @@ export default function Login() {
                 Login
               </button>
             </div>
+            <div className="grid grid-cols-1 text-center pt-3">
+              <small>Version 1.0.0</small>
+            </div>
           </form>
         </div>
       </div>
