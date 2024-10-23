@@ -3,20 +3,24 @@ import api from "@/api/api";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+//import Image from "next/image";
+
+interface Recipe {
+  image: string
+  title: string;
+}
 
 const ConsultContent = () => {
   const [loading, setLoading] = useState(false);
+  const [recipes, setRecipes] = useState<Recipe[]>();
 
   const request = async (value: string) => {
     setLoading(true);
-    await api
-      .get(`/recipes/complexSearch?query=${value}`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const response = await api.get(`/recipes/complexSearch?query=${value}`);
+    const results = response.data.results;
+    if (results && Array.isArray(results)) {
+      setRecipes(results);
+    }
     setLoading(false);
   };
   const formik = useFormik({
@@ -42,7 +46,7 @@ const ConsultContent = () => {
         <div className="col-span-2">
           <form onSubmit={formik.handleSubmit}>
             <div className="flex w-full">
-              <div className="wrapper-input-consult">
+              <div className="wrapper-input-consult me-2">
                 <label htmlFor="" className="label">
                   Search Recipies:
                 </label>
@@ -57,7 +61,18 @@ const ConsultContent = () => {
                   </span>
                 ) : null}
               </div>
-              <button className="btn-default ms-2 mt-6" type="submit">
+              <div>
+                <label htmlFor="" className="label">
+                  Type:
+                </label>
+                <select className="select">
+                  <option value="revenue" selected>
+                    Revenue
+                  </option>
+                  <option value="ingredients">Ingredients</option>
+                </select>
+              </div>
+              <button className="btn-default ms-2 me-2 mt-6" type="submit">
                 Search
               </button>
             </div>
@@ -70,12 +85,30 @@ const ConsultContent = () => {
                   <div className="loader"></div>
                 </div>
               ) : null}
+              {recipes && recipes.length > 0 ? (
+                <div className="grid grid-cols-4 pt-4">
+                  <div className="col-span-1">
+                    <div className="flex justify-center">
+                      {/* <Image
+                      src={}
+                      alt="Picture of the author"
+                      className="logo-header"
+                    /> */}
+                      <div className="img-revenue"></div>
+                    </div>
+                    <div className="text-center">
+                      <span>Name revenue</span> <br />
+                      <small>Lorem Ipsum sit Dolor Amet</small>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
         <div className="col-span-1 pt-6">
           <div className="products-content rounded-md">
-            <div className="px-4">
+            <div className="px-2 py-1">
               <p className="title">Revenue</p>
             </div>
           </div>
