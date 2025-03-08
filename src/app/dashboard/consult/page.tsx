@@ -9,6 +9,8 @@ import Image from "next/image";
 interface Recipe {
   image: string;
   title: string;
+  id: number;
+  name: string;
 }
 
 const ConsultContent = () => {
@@ -74,6 +76,10 @@ const ConsultContent = () => {
                 <select
                   className="select"
                   {...formik.getFieldProps("typeProduct")}
+                  onChange={(event) => {
+                    formik.handleChange(event);
+                    setRecipes([])
+                  }}
                 >
                   <option value="revenue">Revenue</option>
                   <option value="ingredients">Ingredients</option>
@@ -92,7 +98,8 @@ const ConsultContent = () => {
                   <div className="loader"></div>
                 </div>
               ) : null}
-              {!loading && recipes &&
+              {!loading &&
+                recipes &&
                 recipes.length > 0 &&
                 String(formik.values.typeProduct) === "revenue" && (
                   <div className="grid grid-cols-4 pt-4">
@@ -114,6 +121,34 @@ const ConsultContent = () => {
                         </div>
                         <div className="text-center pt-2">
                           <span>{element.title}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              {!loading &&
+                recipes &&
+                recipes.length > 0 &&
+                String(formik.values.typeProduct) === "ingredients" && (
+                  <div className="grid grid-cols-4 pt-4">
+                    {recipes.map((element) => (
+                      <div
+                        className="col-span-1 container-element pb-3"
+                        key={element.id}
+                      >
+                        <div className="flex justify-center">
+                          {
+                            <Image
+                              src={`https://img.spoonacular.com/ingredients_250x250/${element.image}`}
+                              alt="Picture of the author"
+                              className="img-revenue"
+                              width={150}
+                              height={150}
+                            />
+                          }
+                        </div>
+                        <div className="text-center pt-2">
+                          <span>{element.name}</span>
                         </div>
                       </div>
                     ))}

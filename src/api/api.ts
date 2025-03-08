@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://api.spoonacular.com",
-  headers: { "x-api-key": "efda33a7e0264649aee3898572d12914" },
+  headers: { "x-api-key": process.env.NEXT_PUBLIC_API_KEY },
 });
 
 export default api

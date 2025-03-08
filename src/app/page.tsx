@@ -5,8 +5,10 @@ import { useEffect } from "react";
 
 export default function App() {
   const router = useRouter();
+
   useEffect(() => {
     router.push("/login");
-  });
-  return <h1>Food-guide-APP</h1>;
+  }, [router]);
+
+  return <h1>Redirecionando...</h1>;
 }
