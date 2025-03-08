@@ -3,10 +3,11 @@ import api from "@/api/api";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-//import Image from "next/image";
+import { FaPlus } from "react-icons/fa";
+import Image from "next/image";
 
 interface Recipe {
-  image: string
+  image: string;
   title: string;
 }
 
@@ -14,9 +15,13 @@ const ConsultContent = () => {
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState<Recipe[]>();
 
-  const request = async (value: string) => {
+  const request = async (nameProduct: string, typeProduct: string) => {
     setLoading(true);
-    const response = await api.get(`/recipes/complexSearch?query=${value}`);
+    let stringRequest: string = "";
+    typeProduct == "revenue"
+      ? (stringRequest = `/recipes/complexSearch?query=${nameProduct}`)
+      : (stringRequest = `food/${typeProduct}/search?query=${nameProduct}`);
+    const response = await api.get(stringRequest);
     const results = response.data.results;
     if (results && Array.isArray(results)) {
       setRecipes(results);
@@ -26,12 +31,13 @@ const ConsultContent = () => {
   const formik = useFormik({
     initialValues: {
       nameProduct: "",
+      typeProduct: "revenue",
     },
     validationSchema: Yup.object({
       nameProduct: Yup.string().required("Preenchimeto Obrigatório"),
     }),
     onSubmit: (values) => {
-      request(values.nameProduct);
+      request(values.nameProduct, values.typeProduct);
     },
   });
 
@@ -65,10 +71,11 @@ const ConsultContent = () => {
                 <label htmlFor="" className="label">
                   Type:
                 </label>
-                <select className="select">
-                  <option value="revenue" selected>
-                    Revenue
-                  </option>
+                <select
+                  className="select"
+                  {...formik.getFieldProps("typeProduct")}
+                >
+                  <option value="revenue">Revenue</option>
                   <option value="ingredients">Ingredients</option>
                 </select>
               </div>
@@ -85,31 +92,52 @@ const ConsultContent = () => {
                   <div className="loader"></div>
                 </div>
               ) : null}
-              {recipes && recipes.length > 0 ? (
-                <div className="grid grid-cols-4 pt-4">
-                  <div className="col-span-1">
-                    <div className="flex justify-center">
-                      {/* <Image
-                      src={}
-                      alt="Picture of the author"
-                      className="logo-header"
-                    /> */}
-                      <div className="img-revenue"></div>
-                    </div>
-                    <div className="text-center">
-                      <span>Name revenue</span> <br />
-                      <small>Lorem Ipsum sit Dolor Amet</small>
-                    </div>
+              {!loading && recipes &&
+                recipes.length > 0 &&
+                String(formik.values.typeProduct) === "revenue" && (
+                  <div className="grid grid-cols-4 pt-4">
+                    {recipes.map((element) => (
+                      <div
+                        className="col-span-1 container-element pb-3"
+                        key={element.id}
+                      >
+                        <div className="flex justify-center">
+                          {
+                            <Image
+                              src={element.image}
+                              alt="Picture of the author"
+                              className="img-revenue"
+                              width={50}
+                              height={50}
+                            />
+                          }
+                        </div>
+                        <div className="text-center pt-2">
+                          <span>{element.title}</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              ) : null}
+                )}
             </div>
           </div>
         </div>
+        {/* <ul>
+          {items.map((item) => (
+            <li key={item.id}>{item.name}</li>
+          ))}
+        </ul> */}
         <div className="col-span-1 pt-6">
           <div className="products-content rounded-md">
-            <div className="px-2 py-1">
-              <p className="title">Revenue</p>
+            <div className="px-2 py-1 grid grid-cols-2">
+              <div>
+                <p className="title">Recipes</p>
+              </div>
+              <div className="pt-2 text-end">
+                <button className="btn-add p-1" title="add recipe">
+                  <FaPlus />
+                </button>
+              </div>
             </div>
           </div>
         </div>
