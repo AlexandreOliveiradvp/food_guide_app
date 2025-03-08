@@ -28,11 +28,11 @@ export default function Login() {
 
   return (
     <div>
-      <div className="login-box shadow-lg py-4">
+      <div className="login-box shadow-lg pt-4">
         <div className="header flex justify-center">
           <Image src={Logo} alt="Picture of the author" className="logo" />
         </div>
-        <div className="body pt-4">
+        <div className="body py-4">
           <div className="grid grid-cols-1 text-center">
             <h1>Bem Vindo ao Food Guide</h1>
           </div>
@@ -71,6 +71,9 @@ export default function Login() {
               <button type="submit" className="btn-default">
                 Login
               </button>
+            </div>
+            <div className="grid grid-cols-1 text-center pt-3">
+              <small>Version 1.0.0</small>
             </div>
           </form>
         </div>

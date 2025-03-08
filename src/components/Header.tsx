@@ -1,5 +1,5 @@
 "use client";
-import "./header.scss";
+import "../scss/header.scss";
 import Image from "next/image";
 import Logo from "../../public/assets/logoHeader.png";
 import React, { useState } from "react";
