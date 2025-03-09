@@ -102,11 +102,12 @@ body {
       font-size: 1.2rem;
     }
   }
-  .img-revenue {
-    width: 5rem;
-    height: 5rem;
-    background-color: #494a4e;
-    border-radius: 40px;
+  .img-recipe {
+    width: 6rem;
+    height: 6rem;
+    background-color: var(--white);
+    border-radius: 50px;
+    cursor: pointer;
   }
   .container-element {
     span {
@@ -123,6 +124,20 @@ body {
   .wrapper-input-consult {
     width: 75%;
   }
+}
+
+.img-recipe-selected {
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 2px solid var(--red-primary);
+  background-color: var(--white);
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.span-recipe-selected {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
 }
 
 // Default Styles
@@ -160,7 +175,7 @@ body {
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 16px;
-  appearance: none; /* Remove o estilo padrão da seta no select */
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   &:focus {
