@@ -5,13 +5,20 @@ import Image from "next/image";
 import Logo from "../../../public/assets/foodGuide_logo.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Alert from "@/components/Alert";
 
 import Head from "next/head";
 
 export default function Login() {
+  interface AlertData {
+    show: boolean;
+    state: string;
+    text: string;
+  }
   useEffect(() => {
     document.title = "Food Guide - APP";
+    document.documentElement.lang = "en";
   }, []);
   const router = useRouter();
   const formik = useFormik({
@@ -25,11 +32,35 @@ export default function Login() {
     }),
     onSubmit: (values) => {
       if (values.name == "Test" && values.password == "123456") {
-        router.push("/dashboard/consult");
+        setAlertData({
+          show: true,
+          state: "success",
+          text: "Login successful!",
+        });
+        setTimeout(() => {
+          router.push("/dashboard/consult");
+        }, 2600);
       } else {
-        alert("Usuário Inválido!");
+        setAlertData({
+          show: true,
+          state: "danger",
+          text: "Login Invalid",
+        });
       }
+      setTimeout(() => {
+        setAlertData({
+          show: false,
+          state: "",
+          text: "",
+        });
+      }, 2500);
     },
+  });
+
+  const [alertData, setAlertData] = useState<AlertData>({
+    show: false,
+    state: "",
+    text: "",
   });
 
   return (
@@ -98,6 +129,9 @@ export default function Login() {
           </ul>
         </div>
       </div>
+      {alertData.show ? (
+        <Alert text={alertData.text} state={alertData.state} />
+      ) : null}
     </>
   );
 }
