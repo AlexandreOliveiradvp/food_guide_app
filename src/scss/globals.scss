@@ -102,10 +102,10 @@ body {
       font-size: 1.2rem;
     }
   }
-  .img-revenue {
+  .img-recipe {
     width: 6rem;
     height: 6rem;
-    background-color: #494a4e;
+    background-color: var(--white);
     border-radius: 50px;
     cursor: pointer;
   }
@@ -124,6 +124,20 @@ body {
   .wrapper-input-consult {
     width: 75%;
   }
+}
+
+.img-recipe-selected {
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 2px solid var(--red-primary);
+  background-color: var(--white);
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.span-recipe-selected {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
 }
 
 // Default Styles

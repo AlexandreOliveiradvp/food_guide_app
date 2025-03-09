@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaPlus } from "react-icons/fa";
 import Image from "next/image";
+import { space } from "postcss/lib/list";
 
 interface Recipe {
   image: string;
@@ -16,11 +17,16 @@ interface Recipe {
 const ConsultContent = () => {
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState<Recipe[]>();
+  const [selectRecipe, setselectRecipe] = useState<Recipe[]>([]);
+
+  const buildingRecipe = (obj: Recipe) => {
+    setselectRecipe((state) => [...state, obj]);
+  };
 
   const request = async (nameProduct: string, typeProduct: string) => {
     setLoading(true);
     let stringRequest: string = "";
-    typeProduct == "revenue"
+    typeProduct == "recipe"
       ? (stringRequest = `/recipes/complexSearch?query=${nameProduct}`)
       : (stringRequest = `food/${typeProduct}/search?query=${nameProduct}`);
     const response = await api.get(stringRequest);
@@ -33,7 +39,7 @@ const ConsultContent = () => {
   const formik = useFormik({
     initialValues: {
       nameProduct: "",
-      typeProduct: "revenue",
+      typeProduct: "recipe",
     },
     validationSchema: Yup.object({
       nameProduct: Yup.string().required("Preenchimeto Obrigatório"),
@@ -78,10 +84,10 @@ const ConsultContent = () => {
                   {...formik.getFieldProps("typeProduct")}
                   onChange={(event) => {
                     formik.handleChange(event);
-                    setRecipes([])
+                    setRecipes([]);
                   }}
                 >
-                  <option value="revenue">Revenue</option>
+                  <option value="recipe">Recipe</option>
                   <option value="ingredients">Ingredients</option>
                 </select>
               </div>
@@ -101,11 +107,11 @@ const ConsultContent = () => {
               {!loading &&
                 recipes &&
                 recipes.length > 0 &&
-                String(formik.values.typeProduct) === "revenue" && (
+                String(formik.values.typeProduct) === "recipe" && (
                   <div className="grid grid-cols-4 pt-4">
                     {recipes.map((element) => (
                       <div
-                        className="col-span-1 container-element pb-3"
+                        className="col-span-1 container-element pb-3 cursor-pointer"
                         key={element.id}
                       >
                         <div className="flex justify-center">
@@ -113,7 +119,7 @@ const ConsultContent = () => {
                             <Image
                               src={element.image}
                               alt="Picture of the author"
-                              className="img-revenue"
+                              className="img-recipe"
                               width={60}
                               height={60}
                             />
@@ -133,15 +139,16 @@ const ConsultContent = () => {
                   <div className="grid grid-cols-4 pt-4">
                     {recipes.map((element) => (
                       <div
-                        className="col-span-1 container-element pb-3"
+                        className="col-span-1 container-element pb-3 cursor-pointer"
                         key={element.id}
+                        onClick={() => buildingRecipe(element)}
                       >
                         <div className="flex justify-center">
                           {
                             <Image
                               src={`https://img.spoonacular.com/ingredients_250x250/${element.image}`}
                               alt="Picture of the author"
-                              className="img-revenue"
+                              className="img-recipe"
                               width={150}
                               height={150}
                             />
@@ -157,22 +164,37 @@ const ConsultContent = () => {
             </div>
           </div>
         </div>
-        {/* <ul>
-          {items.map((item) => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul> */}
         <div className="col-span-1 pt-6">
           <div className="products-content rounded-md">
             <div className="px-2 py-1 grid grid-cols-2">
               <div>
-                <p className="title">Recipes</p>
+                <p className="title">Recipe</p>
               </div>
               <div className="pt-2 text-end">
                 <button className="btn-add p-1" title="add recipe">
                   <FaPlus />
                 </button>
               </div>
+            </div>
+            <div className="grid grid-cols-4">
+              {selectRecipe.map((item) => (
+                <div className="col-span-1" key={item.id}>
+                  <div className="flex justify-center">
+                    {
+                      <Image
+                      src={`https://img.spoonacular.com/ingredients_250x250/${item.image}`}
+                        alt="Picture of the author"
+                        className="img-recipe-selected"
+                        width={60}
+                        height={60}
+                      />
+                    }
+                  </div>
+                  <div className="text-center pt-2">
+                    <span className="span-recipe-selected">{item.name}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
