@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaPlus } from "react-icons/fa";
 import Image from "next/image";
-import { space } from "postcss/lib/list";
 
 interface Recipe {
   image: string;
@@ -21,6 +20,17 @@ const ConsultContent = () => {
 
   const buildingRecipe = (obj: Recipe) => {
     setselectRecipe((state) => [...state, obj]);
+  };
+
+  const addRecipe = () => {
+    console.log(selectRecipe);
+    if (localStorage.getItem("recipes")) {
+      alert("asdkjfh");
+    } else {
+      let recipes = [];
+      recipes.push(selectRecipe);
+      localStorage.setItem("recipes", JSON.stringify(recipes));
+    }
   };
 
   const request = async (nameProduct: string, typeProduct: string) => {
@@ -166,14 +176,20 @@ const ConsultContent = () => {
         </div>
         <div className="col-span-1 pt-6">
           <div className="products-content rounded-md">
-            <div className="px-2 py-1 grid grid-cols-2">
-              <div>
+            <div className="px-2 py-1 header">
+              <div className="wrap-title">
                 <p className="title">Recipe</p>
               </div>
-              <div className="pt-2 text-end">
-                <button className="btn-add p-1" title="add recipe">
-                  <FaPlus />
-                </button>
+              <div className="wrap-btn">
+                {selectRecipe.length > 0 && (
+                  <button
+                    className="btn-add p-1"
+                    title="add recipe"
+                    onClick={() => addRecipe()}
+                  >
+                    <FaPlus /> <span>Add Recipe</span>
+                  </button>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-4">
@@ -182,11 +198,11 @@ const ConsultContent = () => {
                   <div className="flex justify-center">
                     {
                       <Image
-                      src={`https://img.spoonacular.com/ingredients_250x250/${item.image}`}
+                        src={`https://img.spoonacular.com/ingredients_250x250/${item.image}`}
                         alt="Picture of the author"
                         className="img-recipe-selected"
-                        width={60}
-                        height={60}
+                        width={70}
+                        height={70}
                       />
                     }
                   </div>
