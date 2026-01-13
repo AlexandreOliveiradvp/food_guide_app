@@ -1,0 +1,38 @@
+.alert-default {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  min-width: 15rem;
+  min-height: 4rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 1.05rem;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards, fadeOut 0.5s ease-in forwards 3s;
+}
+
+// Fade in alert
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert-success {
+  background-color: var(--alert-success);
+  color: var(--white);
+}
+
+.alert-danger {
+  background-color: var(--red-primary);
+  color: var(--white);
+}
+
+.icon {
+  font-size: 2rem;
+}

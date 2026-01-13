@@ -72,22 +72,38 @@ body {
   width: 100%;
   background-color: rgb(255, 236, 236);
   border: 1px solid var(--red-border);
-  p.title {
-    font-size: 1.6rem;
-    color: var(--red-primary);
-    font-weight: 500;
-  }
-  .btn-add {
-    background-color: var(--red-primary);
-    border-radius: 30px;
-    svg {
-      color: var(--white) !important;
+  .header {
+    display: flex;
+    .wrap-title {
+      width: 70%;
+      p.title {
+        font-size: 1.6rem;
+        color: var(--red-primary);
+        font-weight: 500;
+      }
     }
-    &:hover {
-      background-color: var(--red-primary-hover);
-    }
-    &:active {
-      background-color: var(--red-primary-active);
+    .wrap-btn {
+      width: 30%;
+      .btn-add {
+        background-color: var(--red-primary);
+        border-radius: 30px;
+        width: 7rem;
+        display: flex;
+        color: #ffffff;
+        margin: 0.3rem 0 0 0.5rem;
+        svg {
+          color: var(--white) !important;
+        }
+        &:hover {
+          background-color: var(--red-primary-hover);
+        }
+        &:active {
+          background-color: var(--red-primary-active);
+        }
+        span {
+          margin: -3px 0 0 3px;
+        }
+      }
     }
   }
 }
@@ -102,11 +118,12 @@ body {
       font-size: 1.2rem;
     }
   }
-  .img-revenue {
-    width: 5rem;
-    height: 5rem;
-    background-color: #494a4e;
-    border-radius: 40px;
+  .img-recipe {
+    width: 6rem;
+    height: 6rem;
+    background-color: var(--white);
+    border-radius: 50px;
+    cursor: pointer;
   }
   .container-element {
     span {
@@ -123,6 +140,19 @@ body {
   .wrapper-input-consult {
     width: 75%;
   }
+}
+
+.img-recipe-selected {
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 2px solid var(--red-primary);
+  background-color: var(--white);
+  border-radius: 50px;
+}
+
+.span-recipe-selected {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
 }
 
 // Default Styles
@@ -160,7 +190,7 @@ body {
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 16px;
-  appearance: none; /* Remove o estilo padrão da seta no select */
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   &:focus {
